@@ -1,5 +1,11 @@
 body {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    border: 2px solid blue;
 }
 
 #main-container {
@@ -11,7 +17,28 @@ body {
 }
 
 .pokemonContainer {
-    max-width: 10rem;
+    width: 24%;
     border: 1px solid black;
     text-align: center;
+    box-shadow: 0px 0px 10px #ccc;
+}
+
+.pokemonContainer img {
+    max-width: 90%;
+    height: auto;
+    background-color: greenyellow;
+    border-radius: 7px;
+    margin-top: 0.5em;
+}
+
+.pokemonContainer h2 {
+    text-align: start;
+    margin: 0.5em 0 1em 0.5em;
+    font-size: 1.5em;
+    text-transform: capitalize;
+}
+
+.pokemonContainer h3 {
+    text-align: start;
+    margin: 0 0 0 1em
 }

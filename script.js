@@ -56,15 +56,19 @@ async function displayPokemonList() {
 
     const containerEl = document.createElement("div");
     containerEl.className = "pokemonContainer";
-    const titleEl = document.createElement("h2");
-    titleEl.textContent = pokemon.name;
+    
     const imageEl = document.createElement("img");
-
     imageEl.src = pokemonExtraData.sprites.other["official-artwork"].front_default
     imageEl.alt = `Image of ${pokemon.name}`;
-    imageEl.style = "max-width : 80%"
 
-    containerEl.append(titleEl, imageEl)
+    const pokemonId = document.createElement("h3");
+    pokemonId.textContent = `#${pokemonExtraData.id}`
+
+    const titleEl = document.createElement("h2");
+    titleEl.textContent = pokemon.name;
+
+
+    containerEl.append(imageEl, pokemonId, titleEl)
     mainContainer.append(containerEl)
   };
 }
