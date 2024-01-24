@@ -1,0 +1,10 @@
+body {
+    box-sizing: border-box;
+}
+
+#main-container {
+    border: solid black 1px;
+    display: grid;
+    grid-template-columns: repeat(1fr 1fr 1fr);
+}
+

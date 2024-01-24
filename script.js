@@ -55,12 +55,15 @@ async function displayPokemonList() {
     console.log(pokemonExtraData);
 
     const containerEl = document.createElement("div");
+    containerEl.style = "width"
     const titleEl = document.createElement("h2");
+    titleEl.style = "max-width : 30%";
     titleEl.textContent = pokemon.name;
     const imageEl = document.createElement("img");
 
     imageEl.src = pokemonExtraData.sprites.other["official-artwork"].front_default
     imageEl.alt = `Image of ${pokemon.name}`;
+    imageEl.style = "max-width : 30%"
 
     containerEl.append(titleEl, imageEl)
     mainContainer.append(containerEl)
