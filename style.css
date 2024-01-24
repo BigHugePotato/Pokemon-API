@@ -4,7 +4,14 @@ body {
 
 #main-container {
     border: solid black 1px;
-    display: grid;
-    grid-template-columns: repeat(1fr 1fr 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
 }
 
+.pokemonContainer {
+    max-width: 10rem;
+    border: 1px solid black;
+    text-align: center;
+}
