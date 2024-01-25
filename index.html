@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="script.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <title>Asynkron Javascript</title>
   </head>
   <body>
     <nav>
-      <button id="btn-home">Home</button>
-      <button id="btn-prev">Previous</button>
-      <button id="btn-next">Next</button>
-      <!-- plus search :) -->
+      <div class="navUp">
+        <button id="btn-home">Home</button>
+        <button id="btn-prev">Previous</button>
+        <button id="btn-next">Next</button>
+        <div class="searchContainer">
+          <input type="text" id="pokemon-search" placeholder="Search Pokemon" />
+          <button id="search-btn">Search</button>
+        </div>
+        <p id="error-msg">sdfsdfsdfsdf</p>
+      </div>
+      <div class="navFilter">
+        <select name="Generation" id="generationSelect">
+          <option value=""></option>
+        </select>
+      </div>
     </nav>
-    <p id="error-msg"></p>
 
     <div id="main-container">
       <!-- pokemon id, pokemon name, pokemon image 
       event: onclick => show pokemon detailjs in full page
       -->
     </div>
-
   </body>
 </html>
