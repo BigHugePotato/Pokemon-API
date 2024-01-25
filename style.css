@@ -52,13 +52,14 @@ nav {
 .pokemonContainer h2 {
   text-align: start;
   margin: 0.3em 0 0.5em 0.5em;
-  font-size: 1.5em;
+  font-size: 1em;
   text-transform: capitalize;
 }
 
 .pokemonContainer h3 {
   text-align: start;
   margin: 0 0 0 0.5em;
+  font-size: 0.9em;
 }
 
 .pokemonContainer span {
