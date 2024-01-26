@@ -1,22 +1,22 @@
 const typeGradients = {
-  normal: "linear-gradient(180deg, #A8A77A 50%, #B8B8A8 50%)",
-  fire: "linear-gradient(180deg, #EE8130 50%, #FFA07A 50%)",
-  water: "linear-gradient(180deg, #6390F0 50%, #7198F5 50%)",
-  electric: "linear-gradient(180deg, #F7D02C 50%, #F7E07C 50%)",
-  grass: "linear-gradient(180deg, #7AC74C 50%, #84D96C 50%)",
-  ice: "linear-gradient(180deg, #96D9D6 50%, #A6E9E6 50%)",
-  fighting: "linear-gradient(180deg, #C22E28 50%, #D24E3E 50%)",
-  poison: "linear-gradient(180deg, #A33EA1 50%, #B35EB1 50%)",
-  ground: "linear-gradient(180deg, #E2BF65 50%, #E2CF85 50%)",
-  flying: "linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%)",
-  psychic: "linear-gradient(180deg, #F95587 50%, #FA75A3 50%)",
-  bug: "linear-gradient(180deg, #A6B91A 50%, #B6C92A 50%)",
-  rock: "linear-gradient(180deg, #B6A136 50%, #C6B146 50%)",
-  ghost: "linear-gradient(180deg, #735797 50%, #8376A7 50%)",
-  dragon: "linear-gradient(180deg, #53a4cf 50%, #f16e57 50%)",
-  dark: "linear-gradient(180deg, #705746 50%, #806766 50%)",
-  steel: "linear-gradient(180deg, #B7B7CE 50%, #C7C7DE 50%)",
-  fairy: "linear-gradient(180deg, #D685AD 50%, #E695BD 50%)",
+  normal: "linear-gradient(#A8A77A, #B8B8A8)",
+  fire: "linear-gradient(#EE8130, #FFA07A)",
+  water: "linear-gradient(#6390F0, #7198F5)",
+  electric: "linear-gradient(#F7D02C, #F7E07C)",
+  grass: "linear-gradient(#7AC74C, #84D96C)",
+  ice: "linear-gradient(#96D9D6, #A6E9E6)",
+  fighting: "linear-gradient(#C22E28, #D24E3E)",
+  poison: "linear-gradient(#A33EA1, #B35EB1)",
+  ground: "linear-gradient( #E2BF65, #E2CF85)",
+  flying: "linear-gradient(#3dc7ef 50%, #bdb9b8 50%)",
+  psychic: "linear-gradient( #F95587, #FA75A3)",
+  bug: "linear-gradient( #A6B91A, #B6C92A)",
+  rock: "linear-gradient( #B6A136, #C6B146)",
+  ghost: "linear-gradient( #735797, #8376A7)",
+  dragon: "linear-gradient( #53a4cf, #f16e57)",
+  dark: "linear-gradient(#705746, #806766)",
+  steel: "linear-gradient( #B7B7CE, #C7C7DE)",
+  fairy: "linear-gradient( #D685AD, #E695BD)",
 };
 
 const typeTextColors = {
@@ -48,7 +48,7 @@ const mainContainer = document.getElementById("main-container");
 const searchBar = document.getElementById("pokemon-search");
 const searchBtn = document.getElementById("search-btn");
 
-const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
+const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=201&limit=20";
 
 let pokemonList = [];
 
@@ -126,9 +126,28 @@ async function displayPokemonList(url = pokedexUrl) {
     containerEl.className = "pokemonContainer";
 
     const imageEl = document.createElement("img");
+    imageEl.className = "pokeImage";
     imageEl.src =
       pokemonExtraData.sprites.other["official-artwork"].front_default;
     imageEl.alt = `Image of ${pokemon.name}`;
+
+    const shinyCheckbox = document.createElement("input");
+    shinyCheckbox.type = "checkbox";
+    shinyCheckbox.className = "shiny-toggle";
+    shinyCheckbox.id = `shiny-toggle-${pokemon.id}`;
+
+    const labelForShiny = document.createElement("label");
+    labelForShiny.textContent = "Shiny";
+
+    shinyCheckbox.addEventListener("change", () => {
+      if (shinyCheckbox.checked) {
+        imageEl.src =
+          pokemonExtraData.sprites.other["official-artwork"].front_shiny;
+      } else {
+        imageEl.src =
+          pokemonExtraData.sprites.other["official-artwork"].front_default;
+      }
+    });
 
     const pokemonId = document.createElement("h3");
     pokemonId.textContent = `#${pokemonExtraData.id}`;
@@ -136,7 +155,13 @@ async function displayPokemonList(url = pokedexUrl) {
     const titleEl = document.createElement("h2");
     titleEl.textContent = pokemon.name;
 
-    containerEl.append(imageEl, pokemonId, titleEl);
+    containerEl.append(
+      imageEl,
+      pokemonId,
+      shinyCheckbox,
+      labelForShiny,
+      titleEl
+    );
     mainContainer.append(containerEl);
 
     pokemonExtraData.types.forEach((typeInfo) => {
@@ -172,24 +197,44 @@ async function searchPokemon() {
       errorMsgEl.textContent = "";
     }, 3000);
   }
-  console.log(searchInput);
 }
 
 async function displayPokemon(pokemonData) {
-  const containerEl = document.createElement("div");
+  const searchContainerEl = document.createElement("div");
+  searchContainerEl.className = "searchPokemonContainer";
 
   const imageEl = document.createElement("img");
   imageEl.src = pokemonData.sprites.other["official-artwork"].front_default;
   imageEl.alt = `Image of ${pokemonData.name}`;
+  imageEl.className = "searchedPokeImage";
 
   const pokemonId = document.createElement("h3");
   pokemonId.textContent = `#${pokemonData.id}`;
 
   const titleEl = document.createElement("h2");
+  titleEl.className = "pokemon-title";
   titleEl.textContent = pokemonData.name;
 
-  containerEl.append(imageEl, pokemonId, titleEl);
-  mainContainer.append(containerEl);
+  const shinyCheckbox = document.createElement("input");
+  shinyCheckbox.type = "checkbox";
+  shinyCheckbox.className = "shiny-toggle";
+  shinyCheckbox.id = `shiny-toggle-${pokemonData.id}`;
+
+  const labelForShiny = document.createElement("label");
+  labelForShiny.textContent = "Shiny";
+
+  shinyCheckbox.addEventListener("change", () => {
+    if (shinyCheckbox.checked) {
+      imageEl.src =
+        pokemonData.sprites.other["official-artwork"].front_shiny;
+    } else {
+      imageEl.src =
+        pokemonData.sprites.other["official-artwork"].front_default;
+    }
+  });
+
+  searchContainerEl.append(imageEl, pokemonId, shinyCheckbox, labelForShiny, titleEl);
+  mainContainer.append(searchContainerEl);
 
   pokemonData.types.forEach((typeInfo) => {
     const typeEl = document.createElement("span");
@@ -197,45 +242,39 @@ async function displayPokemon(pokemonData) {
     typeEl.className = `pokemon-type type-${typeInfo.type.name}`;
     typeEl.style.backgroundImage = typeGradients[typeInfo.type.name] || "gray";
     typeEl.style.color = typeTextColors[typeInfo.type.name] || "black";
-    containerEl.append(typeEl);
-  });
-
-  mainContainer.append(containerEl);
-}
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    fetchGenerations();
-
-    const dropdown = document.getElementById("generation-select");
-    dropdown.addEventListener("change", async (e) => {
-        console.log("Generation selected:", e.target.value);
-        const genUrl = e.target.value;
-        const genDetails = await fetchData(genUrl);
-        const pokedexUrl = genDetails.main_generation.url;
-        displayPokemonList(pokedexUrl)
-})});
-
-async function fetchGenerations() {
-  const url = "https://pokeapi.co/api/v2/generation/";
-  const response = await fetch(url);
-  const data = await response.json();
-  generationDropdown(data.results);
-}
-
-function generationDropdown(generations) {
-  const dropdown = document.getElementById("generation-select");
-
-  generations.forEach((gen) => {
-    const option = document.createElement("option");
-    option.value = gen.url;
-    option.textContent = gen.name.toUpperCase();
-    dropdown.append(option);
+    searchContainerEl.append(typeEl);
   });
 }
 
+// document.addEventListener("DOMContentLoaded", () => {
+//   fetchGenerations();
 
+//   const dropdown = document.getElementById("generation-select");
+//   dropdown.addEventListener("change", async (e) => {
+//     console.log("Generation selected:", e.target.value);
+//     const genUrl = e.target.value;
+//     const genDetails = await fetchData(genUrl);
+//     const pokedexUrl = genDetails.main_generation.url;
+//     displayPokemonList(pokedexUrl);
+//   });
+// });
+
+// async function fetchGenerations() {
+//   const url = "https://pokeapi.co/api/v2/generation/";
+//   const response = await fetch(url);
+//   const data = await response.json();
+//   generationDropdown(data.results);
+// }
+
+// function generationDropdown(generations) {
+//   const dropdown = document.getElementById("generation-select");
+
+//   generations.forEach((gen) => {
+//     const option = document.createElement("option");
+//     option.value = gen.url;
+//     option.textContent = gen.name.toUpperCase();
+//     dropdown.append(option);
+//   });
+// }
 
 displayPokemonList();
