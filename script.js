@@ -48,7 +48,7 @@ const mainContainer = document.getElementById("main-container");
 const searchBar = document.getElementById("pokemon-search");
 const searchBtn = document.getElementById("search-btn");
 
-const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=201&limit=20";
+const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
 
 let pokemonList = [];
 
