@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Flexo-Medium",arial,sans-serif;
+  width: 100vw;
 }
 
 #error-msg {
@@ -13,20 +14,41 @@ body {
 
 
 nav {
-  border: 2px solid blue;
+
   display: flex;
   flex-direction: column;
   padding: 2em;
   gap: 0.5em;
+    background-image: linear-gradient(red, white);
 }
 
 .navUp {
   display: flex;
   gap: 0.5em;
+  justify-content: space-between;
+}
+
+.searchContainer {
+    text-align: cen;
+}
+
+nav button {
+    padding: 0.4em 1em ;
+    border-radius: 0.5em;
+    border: none;
+    background-color: rgb(26, 26, 26);
+    color: whitesmoke;
+    
+}
+
+nav input {
+    padding: 0.35em 0.8em;
+    border-radius: 0.5em;
+    border: none;
 }
 
 #main-container {
-  border: solid black 1px;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -35,6 +57,7 @@ nav {
 }
 
 .pokemonContainer {
+  background-image: linear-gradient(red, white);
   width: 20%;
   text-align: center;
   box-shadow: 0px 0px 10px #ccc;
@@ -44,7 +67,7 @@ nav {
 .pokemonContainer img {
   max-width: 90%;
   height: auto;
-  background-color: greenyellow;
+  background-color: ;
   border-radius: 0.4em;
   margin-top: 0.5em;
 }
