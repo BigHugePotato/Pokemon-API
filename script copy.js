@@ -115,75 +115,65 @@ async function updatePokemonList(url) {
 
 async function displayPokemonList(url = pokedexUrl) {
   await updatePokemonList(url);
+
   mainContainer.innerHTML = "";
+
   for (const pokemon of pokemonList) {
-    const pokemonData = await fetchData(pokemon.url);
-    const pokemonCard = createPokemonCard(pokemonData);
-    mainContainer.appendChild(pokemonCard);
+    const pokemonExtraData = await fetchData(pokemon.url);
+    // console.log(pokemonExtraData);
+
+    const containerEl = document.createElement("div");
+    containerEl.className = "pokemonContainer";
+
+    const imageEl = document.createElement("img");
+    imageEl.className = "pokeImage";
+    imageEl.src =
+      pokemonExtraData.sprites.other["official-artwork"].front_default;
+    imageEl.alt = `Image of ${pokemon.name}`;
+
+    const shinyCheckbox = document.createElement("input");
+    shinyCheckbox.type = "checkbox";
+    shinyCheckbox.className = "shiny-toggle";
+    shinyCheckbox.id = `shiny-toggle-${pokemon.id}`;
+
+    const labelForShiny = document.createElement("label");
+    labelForShiny.textContent = "Shiny";
+
+    shinyCheckbox.addEventListener("change", () => {
+      if (shinyCheckbox.checked) {
+        imageEl.src =
+          pokemonExtraData.sprites.other["official-artwork"].front_shiny;
+      } else {
+        imageEl.src =
+          pokemonExtraData.sprites.other["official-artwork"].front_default;
+      }
+    });
+
+    const pokemonId = document.createElement("h3");
+    pokemonId.textContent = `#${pokemonExtraData.id}`;
+
+    const titleEl = document.createElement("h2");
+    titleEl.textContent = pokemon.name;
+
+    containerEl.append(
+      imageEl,
+      pokemonId,
+      shinyCheckbox,
+      labelForShiny,
+      titleEl
+    );
+    mainContainer.append(containerEl);
+
+    pokemonExtraData.types.forEach((typeInfo) => {
+      const typeEl = document.createElement("span");
+      typeEl.textContent = typeInfo.type.name;
+      typeEl.className = `pokemon-type type-${typeInfo.type.name}`;
+      typeEl.style.backgroundImage =
+        typeGradients[typeInfo.type.name] || "gray";
+      typeEl.style.color = typeTextColors[typeInfo.type.name] || "black";
+      containerEl.append(typeEl);
+    });
   }
-}
-
-function createPokemonCard(pokemonData, isSearchResult = false) {
-  const containerEl = document.createElement("div");
-  containerEl.className = isSearchResult
-    ? "searchPokemonContainer"
-    : "pokemonContainer";
-
-  const imageEl = document.createElement("img");
-  imageEl.src = pokemonData.sprites.other["official-artwork"].front_default;
-  imageEl.alt = `Image of ${pokemonData.name}`;
-  imageEl.className = isSearchResult ? "searchedPokeImage" : "pokeImage";
-
-  const pokemonId = document.createElement("h3");
-  pokemonId.textContent = `#${pokemonData.id}`;
-
-  const titleEl = document.createElement("h2");
-  titleEl.className = isSearchResult ? "pokemon-title" : "";
-  titleEl.textContent = pokemonData.name;
-
-  const shinyCheckbox = createShinyCheckbox(pokemonData, imageEl);
-
-  containerEl.append(
-    imageEl,
-    pokemonId,
-    shinyCheckbox.checkbox,
-    shinyCheckbox.label,
-    titleEl
-  );
-
-  pokemonData.types.forEach((typeInfo) => {
-    const typeEl = createTypeElement(typeInfo);
-    containerEl.append(typeEl);
-  });
-
-  return containerEl;
-}
-
-function createTypeElement(typeInfo) {
-  const typeEl = document.createElement("span");
-  typeEl.textContent = typeInfo.type.name;
-  typeEl.className = `pokemon-type type-${typeInfo.type.name}`;
-  typeEl.style.backgroundImage = typeGradients[typeInfo.type.name] || "gray";
-  typeEl.style.color = typeTextColors[typeInfo.type.name] || "black";
-  return typeEl;
-}
-
-function createShinyCheckbox(pokemonData, imageEl) {
-  const shinyCheckbox = document.createElement("input");
-  shinyCheckbox.type = "checkbox";
-  shinyCheckbox.className = "shiny-toggle";
-  shinyCheckbox.id = `shiny-toggle-${pokemonData.id}`;
-
-  const labelForShiny = document.createElement("label");
-  labelForShiny.textContent = "Shiny";
-
-  shinyCheckbox.addEventListener("change", () => {
-    imageEl.src = shinyCheckbox.checked
-      ? pokemonData.sprites.other["official-artwork"].front_shiny
-      : pokemonData.sprites.other["official-artwork"].front_default;
-  });
-
-  return { checkbox: shinyCheckbox, label: labelForShiny };
 }
 
 async function searchPokemon() {
@@ -196,8 +186,9 @@ async function searchPokemon() {
 
   try {
     const pokemonData = await fetchData(searchUrl);
-    const pokemonCard = createPokemonCard(pokemonData, true);
-    mainContainer.appendChild(pokemonCard);
+    if (pokemonData) {
+      displayPokemon(pokemonData);
+    }
   } catch (error) {
     console.error("Pokemon not found", error);
     errorMsgEl.textContent = "Pokemon not found. Please try another name.";
@@ -207,5 +198,53 @@ async function searchPokemon() {
     }, 3000);
   }
 }
+
+async function displayPokemon(pokemonData) {
+  const searchContainerEl = document.createElement("div");
+  searchContainerEl.className = "searchPokemonContainer";
+
+  const imageEl = document.createElement("img");
+  imageEl.src = pokemonData.sprites.other["official-artwork"].front_default;
+  imageEl.alt = `Image of ${pokemonData.name}`;
+  imageEl.className = "searchedPokeImage";
+
+  const pokemonId = document.createElement("h3");
+  pokemonId.textContent = `#${pokemonData.id}`;
+
+  const titleEl = document.createElement("h2");
+  titleEl.className = "pokemon-title";
+  titleEl.textContent = pokemonData.name;
+
+  const shinyCheckbox = document.createElement("input");
+  shinyCheckbox.type = "checkbox";
+  shinyCheckbox.className = "shiny-toggle";
+  shinyCheckbox.id = `shiny-toggle-${pokemonData.id}`;
+
+  const labelForShiny = document.createElement("label");
+  labelForShiny.textContent = "Shiny";
+
+  shinyCheckbox.addEventListener("change", () => {
+    if (shinyCheckbox.checked) {
+      imageEl.src =
+        pokemonData.sprites.other["official-artwork"].front_shiny;
+    } else {
+      imageEl.src =
+        pokemonData.sprites.other["official-artwork"].front_default;
+    }
+  });
+
+  searchContainerEl.append(imageEl, pokemonId, shinyCheckbox, labelForShiny, titleEl);
+  mainContainer.append(searchContainerEl);
+
+  pokemonData.types.forEach((typeInfo) => {
+    const typeEl = document.createElement("span");
+    typeEl.textContent = typeInfo.type.name;
+    typeEl.className = `pokemon-type type-${typeInfo.type.name}`;
+    typeEl.style.backgroundImage = typeGradients[typeInfo.type.name] || "gray";
+    typeEl.style.color = typeTextColors[typeInfo.type.name] || "black";
+    searchContainerEl.append(typeEl);
+  });
+}
+
 
 displayPokemonList();
