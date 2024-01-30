@@ -21,15 +21,38 @@
         </div>
       </div>
       <div class="navFilter">
-      <p id="error-msg"></p>
+        <p id="error-msg"></p>
       </div>
     </nav>
     <div id="main-container"></div>
     <div id="pokemonOverlay" class="overlay">
       <div class="overlay-content">
-        <!-- Dynamic content will be inserted here based on the clicked Pokémon -->
+        <div class="overlay-left">
+          <!-- Name and ID -->
+          <div class="pokemon-info">
+            <h2 class="pokemon-name">Name</h2>
+            <p class="pokemon-id">ID</p>
+          </div>
+          <!-- Pokémon Image -->
+          <img class="pokemon-image" src="" alt="Pokémon" />
+          <!-- Toggles -->
+          <div class="toggles">
+            <button class="toggle-gender">Gender</button>
+            <button class="toggle-image">Front/Back</button>
+            <button class="toggle-shiny">Shiny</button>
+          </div>
+          <!-- Navigation -->
+          <div class="navigation">
+            <button class="prev-pokemon">Prev</button>
+            <button class="next-pokemon">Next</button>
+            <!-- Preview Images -->
+            <img class="prev-pokemon-preview" src="" alt="Previous Pokémon" />
+            <img class="next-pokemon-preview" src="" alt="Next Pokémon" />
+          </div>
+        </div>
+        <div class="overlay-right">
+        </div>
       </div>
     </div>
-
   </body>
 </html>

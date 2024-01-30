@@ -186,11 +186,26 @@ function showPokemonDetailsInOverlay(pokemonData) {
   const overlayContent = document.querySelector(".overlay-content");
   overlayContent.innerHTML = "";
 
+  const overlayLeft = document.createElement('div');
+  overlayLeft.className = 'overlay-left';
 
-  const nameEl = document.createElement("h2");
+  const nameEl = document.createElement('h2');
+  nameEl.className = 'pokemon-name';
   nameEl.textContent = pokemonData.name;
-  overlayContent.appendChild(nameEl);
+  overlayLeft.appendChild(nameEl);
 
+  const idEl = document.createElement('p');
+  idEl.className = 'pokemon-id';
+  idEl.textContent = `#${pokemonData.id}`;
+  overlayLeft.appendChild(idEl);
+
+  const imgEl = document.createElement('img');
+  imgEl.className = 'pokemon-image';
+  imgEl.src = pokemonData.sprites.other["official-artwork"].front_default;
+  overlayLeft.appendChild(imgEl);
+
+
+  overlayContent.appendChild(overlayLeft);
 
   document.getElementById("pokemonOverlay").style.display = "block";
   document.body.classList.add("active-overlay");
