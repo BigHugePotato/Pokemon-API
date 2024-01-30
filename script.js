@@ -246,35 +246,5 @@ async function displayPokemon(pokemonData) {
   });
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   fetchGenerations();
-
-//   const dropdown = document.getElementById("generation-select");
-//   dropdown.addEventListener("change", async (e) => {
-//     console.log("Generation selected:", e.target.value);
-//     const genUrl = e.target.value;
-//     const genDetails = await fetchData(genUrl);
-//     const pokedexUrl = genDetails.main_generation.url;
-//     displayPokemonList(pokedexUrl);
-//   });
-// });
-
-// async function fetchGenerations() {
-//   const url = "https://pokeapi.co/api/v2/generation/";
-//   const response = await fetch(url);
-//   const data = await response.json();
-//   generationDropdown(data.results);
-// }
-
-// function generationDropdown(generations) {
-//   const dropdown = document.getElementById("generation-select");
-
-//   generations.forEach((gen) => {
-//     const option = document.createElement("option");
-//     option.value = gen.url;
-//     option.textContent = gen.name.toUpperCase();
-//     dropdown.append(option);
-//   });
-// }
 
 displayPokemonList();
