@@ -13,23 +13,33 @@ const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
 let pokemonList = [];
 
 searchBtn.addEventListener("click", searchPokemon);
-
 searchBar.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     searchPokemon();
   }
 });
-
 buttonHome.addEventListener("click", () => {
   displayPokemonList(pokedexUrl);
 });
-
 buttonNext.addEventListener("click", () => {
   if (nextUrl) displayPokemonList(nextUrl);
 });
-
 buttonPrev.addEventListener("click", () => {
   if (prevUrl) displayPokemonList(prevUrl);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("pokemonOverlay");
+  const overlayContent = document.querySelector(".overlay-content");
+
+  // Prevent clicks inside the overlay content from closing the overlay
+  overlayContent.addEventListener("click", (event) => event.stopPropagation());
+
+  // Attach click event listener to the overlay
+  overlay.addEventListener("click", () => {
+    overlay.style.display = "none";
+    document.body.classList.remove("active-overlay");
+  });
 });
 
 /**
@@ -116,6 +126,10 @@ function createPokemonCard(pokemonData, isSearchResult = false) {
     containerEl.append(typeEl);
   });
 
+  containerEl.addEventListener("click", () => {
+    showPokemonDetailsInOverlay(pokemonData);
+  });
+
   return containerEl;
 }
 
@@ -166,6 +180,20 @@ async function searchPokemon() {
       errorMsgEl.textContent = "";
     }, 3000);
   }
+}
+
+function showPokemonDetailsInOverlay(pokemonData) {
+  const overlayContent = document.querySelector(".overlay-content");
+  overlayContent.innerHTML = "";
+
+
+  const nameEl = document.createElement("h2");
+  nameEl.textContent = pokemonData.name;
+  overlayContent.appendChild(nameEl);
+
+
+  document.getElementById("pokemonOverlay").style.display = "block";
+  document.body.classList.add("active-overlay");
 }
 
 displayPokemonList();
