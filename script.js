@@ -8,7 +8,7 @@ const mainContainer = document.getElementById("main-container");
 const searchBar = document.getElementById("pokemon-search");
 const searchBtn = document.getElementById("search-btn");
 
-const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
+const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=8";
 
 let pokemonList = [];
 
@@ -32,10 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("pokemonOverlay");
   const overlayContent = document.querySelector(".overlay-content");
 
-  // Prevent clicks inside the overlay content from closing the overlay
   overlayContent.addEventListener("click", (event) => event.stopPropagation());
 
-  // Attach click event listener to the overlay
   overlay.addEventListener("click", () => {
     overlay.style.display = "none";
     document.body.classList.remove("active-overlay");
@@ -182,30 +180,82 @@ async function searchPokemon() {
   }
 }
 
-function showPokemonDetailsInOverlay(pokemonData) {
+async function showPokemonDetailsInOverlay(pokemonData) {
   const overlayContent = document.querySelector(".overlay-content");
   overlayContent.innerHTML = "";
 
-  const overlayLeft = document.createElement('div');
-  overlayLeft.className = 'overlay-left';
+  const overlayLeft = document.createElement("div");
+  overlayLeft.className = "overlay-left";
+  overlayContent.appendChild(overlayLeft);
 
-  const nameEl = document.createElement('h2');
-  nameEl.className = 'pokemon-name';
+  const nameEl = document.createElement("h2");
+  nameEl.className = "pokemon-name";
   nameEl.textContent = pokemonData.name;
   overlayLeft.appendChild(nameEl);
 
-  const idEl = document.createElement('p');
-  idEl.className = 'pokemon-id';
+  const idEl = document.createElement("p");
+  idEl.className = "pokemon-id";
   idEl.textContent = `#${pokemonData.id}`;
   overlayLeft.appendChild(idEl);
 
-  const imgEl = document.createElement('img');
-  imgEl.className = 'pokemon-image';
+  const imgEl = document.createElement("img");
+  imgEl.className = "pokemon-image";
   imgEl.src = pokemonData.sprites.other["official-artwork"].front_default;
   overlayLeft.appendChild(imgEl);
 
 
-  overlayContent.appendChild(overlayLeft);
+  
+  const prevContainer = document.createElement("div");
+  prevContainer.className = "pokemon-navigation-container";
+
+
+  const nextContainer = document.createElement("div");
+  nextContainer.className = "pokemon-navigation-container";
+
+  overlayLeft.appendChild(prevContainer); 
+  overlayLeft.appendChild(nextContainer);
+
+
+  const prevPokemonId = pokemonData.id - 1;
+  if (prevPokemonId > 0) {
+    const prevPokemonUrl = `https://pokeapi.co/api/v2/pokemon/${prevPokemonId}/`;
+    try {
+      const prevPokemonData = await fetchData(prevPokemonUrl);
+
+      const prevImgEl = document.createElement("img");
+      const prevImgText = document.createElement("h4");
+      prevImgEl.className = "pokemon-image";
+      prevImgText.className = "prev-pokemon-text";
+      prevImgEl.src =
+        prevPokemonData.sprites.other["official-artwork"].front_default;
+      prevImgText.textContent = prevPokemonData.name;
+
+      prevContainer.appendChild(prevImgEl);
+      prevContainer.appendChild(prevImgText);
+    } catch (error) {
+      console.error("Error fetching previous Pokémon:", error);
+    }
+  }
+
+
+  const nextPokemonId = pokemonData.id + 1;
+  const nextPokemonUrl = `https://pokeapi.co/api/v2/pokemon/${nextPokemonId}/`;
+  try {
+    const nextPokemonData = await fetchData(nextPokemonUrl);
+
+    const nextImgEl = document.createElement("img");
+    const nextImgText = document.createElement("h4");
+    nextImgEl.className = "pokemon-image";
+    nextImgText.className = "next-pokemon-text";
+    nextImgEl.src =
+      nextPokemonData.sprites.other["official-artwork"].front_default;
+    nextImgText.textContent = nextPokemonData.name;
+
+    nextContainer.appendChild(nextImgEl);
+    nextContainer.appendChild(nextImgText);
+  } catch (error) {
+    console.error("Error fetching next Pokémon:", error);
+  }
 
   document.getElementById("pokemonOverlay").style.display = "block";
   document.body.classList.add("active-overlay");
