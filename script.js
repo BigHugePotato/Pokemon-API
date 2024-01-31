@@ -124,7 +124,7 @@ function createPokemonCard(pokemonData, isSearchResult = false) {
     containerEl.append(typeEl);
   });
 
-  containerEl.addEventListener("click", () => {
+  imageEl.addEventListener("click", () => {
     showPokemonDetailsInOverlay(pokemonData);
   });
 
@@ -182,11 +182,31 @@ async function searchPokemon() {
 
 async function showPokemonDetailsInOverlay(pokemonData) {
   // Selecting existing elements
+  const pokemonInfo = document.querySelector(".pokemon-info");
   const pokemonName = document.getElementById("pokemonName");
   const pokemonId = document.getElementById("pokemonId");
   const pokemonImage = document.getElementById("pokemonImage");
   const prevPokemonContainer = document.getElementById("prevPokemonContainer");
   const nextPokemonContainer = document.getElementById("nextPokemonContainer");
+
+  const existingTypesContainer = pokemonInfo.querySelector(
+    ".pokemon-types-container"
+  );
+  if (existingTypesContainer) {
+    pokemonInfo.removeChild(existingTypesContainer);
+  }
+
+  const typesContainer = document.createElement("div");
+  typesContainer.className = "pokemon-types-container";
+
+  // Populate the container with type elements
+  pokemonData.types.forEach((typeInfo) => {
+    const typeEl = createTypeElement(typeInfo);
+    typesContainer.appendChild(typeEl);
+  });
+
+  // Append the types container to an appropriate place in the overlay
+  pokemonInfo.appendChild(typesContainer);
 
   // Updating main Pokémon info
   pokemonName.textContent = pokemonData.name;
