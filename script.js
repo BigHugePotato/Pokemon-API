@@ -235,12 +235,23 @@ function displayPokemonPreview(pokemonData, container) {
   idEl.className = "nav-pokemon-id";
   textEl.className = "pokemon-text";
   imgEl.src = pokemonData.sprites.other["official-artwork"].front_default;
-  idEl.textContent = `#${pokemonData.id}`
+  idEl.textContent = `#${pokemonData.id}`;
   textEl.textContent = pokemonData.name;
+
+  imgEl.addEventListener("click", async () => {
+    try {
+      const fullPokemonData = await fetchData(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonData.id}/`
+      );
+      showPokemonDetailsInOverlay(fullPokemonData);
+    } catch (error) {
+      console.error("Error fetching Pokémon data:", error);
+    }
+  });
 
   container.appendChild(imgEl);
   container.appendChild(idEl);
   container.appendChild(textEl);
-} 
+}
 
 displayPokemonList();

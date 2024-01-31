@@ -118,7 +118,7 @@ span {
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: 90%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
   z-index: 2;
@@ -133,7 +133,7 @@ body.active-overlay #main-container {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
+  padding: 1em;
   background-image: linear-gradient(red, white);
   width: 100%;
   height: 70%;
@@ -141,7 +141,6 @@ body.active-overlay #main-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: 0.4em;
-
 }
 
 .overlay-left,
@@ -149,23 +148,26 @@ body.active-overlay #main-container {
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  padding: 1em;
 }
 
-.pokemon-name{
-  margin: 0.3em;
+.overlay-left {
+  padding-right: 1em;
 }
-.pokemon-id{
-  margin: 0;
+
+.pokemon-name {
+  margin: 0.3em;
+  text-transform: capitalize;
+}
+.pokemon-id {
+  margin: 0.3em;
 }
 
 .pokemon-image {
-  width: 60%;
-  height: auto;
+  width: auto;
+  height: 10em;
   margin: auto;
+  border: 1px solid;
 }
-
 
 .toggles {
   margin: auto;
@@ -179,32 +181,34 @@ body.active-overlay #main-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .pokemon-prev-container,
 .pokemon-next-container {
-  margin-top: 2.5em;
+  margin-top: 0.5em;
+  width: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.pokemon-prev-container {
-}
-.pokemon-next-container {
-  text-align: right;
-}
 .nav-pokemon-image {
-  width: 50%;
+  width: 90%;
   height: auto;
-  /* background-color: blue; */
+  margin-bottom: 0.2em;
+  
 }
 
 .nav-pokemon-id {
   margin: 0;
+  font-size: 0.6em;
 }
-.pokemon-text,
+
 .pokemon-text {
-  font-size: 0.5em;
+  font-size: 0.6em;
   margin: 0;
+  text-transform: capitalize;
 }
 
 button:hover {
@@ -212,6 +216,6 @@ button:hover {
 }
 
 .overlay-right {
-  background-color: blue;
+  border: 1px solid;
   width: 20px;
 }
