@@ -181,88 +181,66 @@ async function searchPokemon() {
 }
 
 async function showPokemonDetailsInOverlay(pokemonData) {
-  const overlayContent = document.querySelector(".overlay-content");
-  overlayContent.innerHTML = "";
+  // Selecting existing elements
+  const pokemonName = document.getElementById("pokemonName");
+  const pokemonId = document.getElementById("pokemonId");
+  const pokemonImage = document.getElementById("pokemonImage");
+  const prevPokemonContainer = document.getElementById("prevPokemonContainer");
+  const nextPokemonContainer = document.getElementById("nextPokemonContainer");
 
-  const overlayLeft = document.createElement("div");
-  overlayLeft.className = "overlay-left";
-  overlayContent.appendChild(overlayLeft);
+  // Updating main Pokémon info
+  pokemonName.textContent = pokemonData.name;
+  pokemonId.textContent = `#${pokemonData.id}`;
+  pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonData.id}.gif`;
 
-  const nameEl = document.createElement("h2");
-  nameEl.className = "pokemon-name";
-  nameEl.textContent = pokemonData.name;
-  overlayLeft.appendChild(nameEl);
+  // Clear previous content in navigation containers
+  prevPokemonContainer.innerHTML = "";
+  nextPokemonContainer.innerHTML = "";
 
-  const idEl = document.createElement("p");
-  idEl.className = "pokemon-id";
-  idEl.textContent = `#${pokemonData.id}`;
-  overlayLeft.appendChild(idEl);
-
-  const imgEl = document.createElement("img");
-  imgEl.className = "pokemon-image";
-  imgEl.src = pokemonData.sprites.other["official-artwork"].front_default;
-  overlayLeft.appendChild(imgEl);
-
-
-
-    const navContainer = document.createElement("div");
-    navContainer.className = "pokemon-navigation-container";
-
-  const prevContainer = document.createElement("div");
-  prevContainer.className = "pokemon-prev-container";
-
-
-  const nextContainer = document.createElement("div");
-  nextContainer.className = "pokemon-next-container";
-
-  navContainer.appendChild(prevContainer); 
-  navContainer.appendChild(nextContainer);
-  overlayLeft.appendChild(navContainer)
-
-
+  // Handling Previous Pokémon (if prevPokemonId is valid)
   const prevPokemonId = pokemonData.id - 1;
   if (prevPokemonId > 0) {
-    const prevPokemonUrl = `https://pokeapi.co/api/v2/pokemon/${prevPokemonId}/`;
+    // Fetch and display previous Pokémon
     try {
-      const prevPokemonData = await fetchData(prevPokemonUrl);
-
-      const prevImgEl = document.createElement("img");
-      const prevImgText = document.createElement("h4");
-      prevImgEl.className = "nav-pokemon-image";
-      prevImgText.className = "prev-pokemon-text";
-      prevImgEl.src =
-        prevPokemonData.sprites.other["official-artwork"].front_default;
-      prevImgText.textContent = prevPokemonData.name;
-
-      prevContainer.appendChild(prevImgEl);
-      prevContainer.appendChild(prevImgText);
+      const prevPokemonData = await fetchData(
+        `https://pokeapi.co/api/v2/pokemon/${prevPokemonId}/`
+      );
+      displayPokemonPreview(prevPokemonData, prevPokemonContainer);
     } catch (error) {
       console.error("Error fetching previous Pokémon:", error);
     }
   }
 
-
+  // Handling Next Pokémon
   const nextPokemonId = pokemonData.id + 1;
-  const nextPokemonUrl = `https://pokeapi.co/api/v2/pokemon/${nextPokemonId}/`;
   try {
-    const nextPokemonData = await fetchData(nextPokemonUrl);
-
-    const nextImgEl = document.createElement("img");
-    const nextImgText = document.createElement("h4");
-    nextImgEl.className = "nav-pokemon-image";
-    nextImgText.className = "next-pokemon-text";
-    nextImgEl.src =
-      nextPokemonData.sprites.other["official-artwork"].front_default;
-    nextImgText.textContent = nextPokemonData.name;
-
-    nextContainer.appendChild(nextImgEl);
-    nextContainer.appendChild(nextImgText);
+    const nextPokemonData = await fetchData(
+      `https://pokeapi.co/api/v2/pokemon/${nextPokemonId}/`
+    );
+    displayPokemonPreview(nextPokemonData, nextPokemonContainer);
   } catch (error) {
     console.error("Error fetching next Pokémon:", error);
   }
 
+  // Display the overlay
   document.getElementById("pokemonOverlay").style.display = "block";
   document.body.classList.add("active-overlay");
 }
+
+function displayPokemonPreview(pokemonData, container) {
+  const imgEl = document.createElement("img");
+  const idEl = document.createElement("h5");
+  const textEl = document.createElement("h4");
+  imgEl.className = "nav-pokemon-image";
+  idEl.className = "nav-pokemon-id";
+  textEl.className = "pokemon-text";
+  imgEl.src = pokemonData.sprites.other["official-artwork"].front_default;
+  idEl.textContent = `#${pokemonData.id}`
+  textEl.textContent = pokemonData.name;
+
+  container.appendChild(imgEl);
+  container.appendChild(idEl);
+  container.appendChild(textEl);
+} 
 
 displayPokemonList();

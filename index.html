@@ -27,32 +27,36 @@
     <div id="main-container"></div>
     <div id="pokemonOverlay" class="overlay">
       <div class="overlay-content">
-        <div class="overlay-left">
-          <!-- Name and ID -->
-          <div class="pokemon-info">
-            <h2 class="pokemon-name">Name</h2>
-            <p class="pokemon-id">ID</p>
-          </div>
-          <!-- Pokémon Image -->
-          <img class="pokemon-image" src="" alt="Pokémon" />
-          <!-- Toggles -->
-          <div class="toggles">
-            <button class="toggle-gender">Gender</button>
-            <button class="toggle-image">Front/Back</button>
-            <button class="toggle-shiny">Shiny</button>
-          </div>
-          <!-- Navigation -->
-          <div class="navigation">
-            <button class="prev-pokemon">Prev</button>
-            <button class="next-pokemon">Next</button>
-            <!-- Preview Images -->
-            <img class="prev-pokemon-preview" src="" alt="Previous Pokémon" />
-            <img class="next-pokemon-preview" src="" alt="Next Pokémon" />
-          </div>
-        </div>
-        <div class="overlay-right">
-        </div>
+  <div class="overlay-left">
+    <!-- Name and ID -->
+    <div class="pokemon-info">
+      <h2 id="pokemonName" class="pokemon-name"></h2>
+      <p id="pokemonId" class="pokemon-id"></p>
+    </div>
+    <!-- Pokémon Image -->
+    <img id="pokemonImage" class="pokemon-image" src="" alt="Pokémon" />
+    <!-- Toggles (if needed, you can keep these as dynamically created elements) -->
+    <div class="toggles">
+      <button class="toggle-gender">Gender</button>
+      <button class="toggle-image">Front/Back</button>
+      <button class="toggle-shiny">Shiny</button>
+    </div>
+    <!-- Navigation Container -->
+    <div class="pokemon-navigation-container">
+      <!-- Previous Pokémon Preview Container -->
+      <div id="prevPokemonContainer" class="pokemon-prev-container">
+        <!-- Previous Pokémon preview will be dynamically updated -->
       </div>
+      <!-- Next Pokémon Preview Container -->
+      <div id="nextPokemonContainer" class="pokemon-next-container">
+        <!-- Next Pokémon preview will be dynamically updated -->
+      </div>
+    </div>
+  </div>
+  <div class="overlay-right">
+    <!-- Right side content -->
+  </div>
+</div>
     </div>
   </body>
 </html>
