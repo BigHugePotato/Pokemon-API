@@ -112,9 +112,6 @@ span {
   text-align: start;
 }
 
-
-
-
 /********** Overlay full-screen background *******************/
 .overlay {
   position: fixed;
@@ -122,7 +119,7 @@ span {
   bottom: 0;
   width: 100%;
   height: 90%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: none;
   z-index: 2;
 }
@@ -140,18 +137,47 @@ body.active-overlay #main-container {
   background: white;
   width: 100%;
   height: 70%;
-  max-width: 500px;  
-  display: flex;
+  max-width: 500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-
-.overlay-left, .overlay-right {
-  flex: 1;
+.overlay-left,
+.overlay-right {
   border: 1px solid black;
 }
 
 .pokemon-image {
-  width: 30%;
+  width: 40%;
   height: auto;
 }
 
+.pokemon-navigation-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pokemon-prev-container, .pokemon-next-container {
+  width: 30%;
+}
+
+.nav-pokemon-image {
+  width: 20%;
+  height: auto;
+  background-color: blue;
+}
+.next-pokemon-text,
+.prev-pokemon-text {
+  font-size: 0.5em;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+.overlay-right {
+  background-color: blue;
+  width: 20px;
+}

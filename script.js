@@ -8,7 +8,7 @@ const mainContainer = document.getElementById("main-container");
 const searchBar = document.getElementById("pokemon-search");
 const searchBtn = document.getElementById("search-btn");
 
-const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=8";
+const pokedexUrl = "https://pokeapi.co/api/v2/pokemon?offset=5&limit=8";
 
 let pokemonList = [];
 
@@ -204,16 +204,20 @@ async function showPokemonDetailsInOverlay(pokemonData) {
   overlayLeft.appendChild(imgEl);
 
 
-  
+
+    const navContainer = document.createElement("div");
+    navContainer.className = "pokemon-navigation-container";
+
   const prevContainer = document.createElement("div");
-  prevContainer.className = "pokemon-navigation-container";
+  prevContainer.className = "pokemon-prev-container";
 
 
   const nextContainer = document.createElement("div");
-  nextContainer.className = "pokemon-navigation-container";
+  nextContainer.className = "pokemon-next-container";
 
-  overlayLeft.appendChild(prevContainer); 
-  overlayLeft.appendChild(nextContainer);
+  navContainer.appendChild(prevContainer); 
+  navContainer.appendChild(nextContainer);
+  overlayLeft.appendChild(navContainer)
 
 
   const prevPokemonId = pokemonData.id - 1;
@@ -224,7 +228,7 @@ async function showPokemonDetailsInOverlay(pokemonData) {
 
       const prevImgEl = document.createElement("img");
       const prevImgText = document.createElement("h4");
-      prevImgEl.className = "pokemon-image";
+      prevImgEl.className = "nav-pokemon-image";
       prevImgText.className = "prev-pokemon-text";
       prevImgEl.src =
         prevPokemonData.sprites.other["official-artwork"].front_default;
@@ -245,7 +249,7 @@ async function showPokemonDetailsInOverlay(pokemonData) {
 
     const nextImgEl = document.createElement("img");
     const nextImgText = document.createElement("h4");
-    nextImgEl.className = "pokemon-image";
+    nextImgEl.className = "nav-pokemon-image";
     nextImgText.className = "next-pokemon-text";
     nextImgEl.src =
       nextPokemonData.sprites.other["official-artwork"].front_default;
