@@ -212,9 +212,9 @@ async function showPokemonDetailsInOverlay(pokemonData) {
   pokemonInfo.appendChild(typesContainer);
 
   // Updating main Pokémon info
-  pokemonName.textContent = pokemonData.name;
+  pokemonName.textContent = `${pokemonData.name}`;
   pokemonId.textContent = `#${pokemonData.id}`;
-  pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonData.id}.gif`;
+  // pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonData.id}.gif`;
 
   // Clear previous content in navigation containers
   prevPokemonContainer.innerHTML = "";
@@ -243,7 +243,51 @@ async function showPokemonDetailsInOverlay(pokemonData) {
     pokeAbilities.appendChild(abilityEl);
   });
 
-  // Handling Previous Pokémon (if prevPokemonId is valid)
+  let isShiny = true;
+  let isFront = true;
+
+  const images = {
+    frontMale: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonData.id}.gif`,
+    frontShiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/shiny/${pokemonData.id}.gif`,
+    backMale: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/${pokemonData.id}.gif`,
+    backShiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/shiny/${pokemonData.id}.gif`,
+  };
+
+  function updateImg() {
+    if (pokemonData.id > 649) {
+      pokemonImage.src =
+        pokemonData.sprites.other["official-artwork"].front_default;
+      return;
+    }
+    let imgKey = "frontMale"; // Start with the default image
+    if (!isShiny && isFront) {
+      imgKey = "frontShiny";
+    } else if (isShiny && !isFront) {
+      imgKey = "backMale";
+    } else if (!isShiny && !isFront) {
+      imgKey = "backShiny";
+    }
+
+    pokemonImage.src = images[imgKey];
+  }
+  updateImg();
+
+  const shinyBtn = document.querySelector(".toggle-shiny");
+  const switchBtn = document.querySelector(".toggle-image");
+
+  function toggleGender() {
+    isShiny = !isShiny;
+    updateImg();
+  }
+
+  function toggleImageSwitch() {
+    isFront = !isFront;
+    updateImg();
+  }
+
+  shinyBtn.addEventListener("click", toggleGender);
+  switchBtn.addEventListener("click", toggleImageSwitch);
+
   const prevPokemonId = pokemonData.id - 1;
   if (prevPokemonId > 0) {
     // Fetch and display previous Pokémon

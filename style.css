@@ -195,10 +195,10 @@ body.active-overlay #main-container {
 .pokemon-navigation-container {
   display: flex;
   flex-direction: row;
+  padding: 0 1em;
   justify-content: space-between;
   border-radius: 0.5em;
   color: #ffdf6c;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(50, 50, 50, 0.6);
 }
 
@@ -225,11 +225,11 @@ body.active-overlay #main-container {
 
 .nav-pokemon-id {
   margin: 0;
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 
 .pokemon-text {
-  font-size: 0.6em;
+  font-size: 0.8em;
   margin: 0;
   text-transform: capitalize;
 }
