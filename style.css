@@ -137,7 +137,7 @@ body.active-overlay #main-container {
   background-image: linear-gradient(red, white);
   width: 100%;
   height: 80%;
-  max-width: 800px;
+  max-width: 900px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: 0.4em;
@@ -151,36 +151,42 @@ body.active-overlay #main-container {
 
 .overlay-left {
   padding-right: 1em;
+  justify-content: space-between;
 }
 
-.pokemon-info{
-background-color: #800020;
-border-radius: 0.5em;
+.pokemon-info {
+  color: #ffdf6c;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(50, 50, 50, 0.6);
+  border-radius: 0.5em;
 }
 .pokemon-name {
   margin: 0.2em;
   text-transform: capitalize;
   font-size: 1.4em;
-  color: #FFDF6C;
 }
 .pokemon-id {
   margin: 0.1em 0 0.1em 0.5em;
-  color: #FFDF6C;
 }
 
+.overlay-main {
+  display: flex;
+}
 .pokemon-image {
   width: auto;
-  height: 10em;
+  height: 15em;
   margin: auto;
-  border: 1px solid;
 }
 
 .toggles {
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 1em;
 }
 
 .toggles button {
-  background-color: #FFDF6C;
+  background-color: #ffdf6c;
   padding: 0.3em 0.7em;
   border-radius: 0.5em;
   border: 0;
@@ -190,8 +196,10 @@ border-radius: 0.5em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #800020;
   border-radius: 0.5em;
+  color: #ffdf6c;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(50, 50, 50, 0.6);
 }
 
 .pokemon-prev-container,
@@ -218,14 +226,12 @@ border-radius: 0.5em;
 .nav-pokemon-id {
   margin: 0;
   font-size: 0.6em;
-  color: #FFDF6C;
 }
 
 .pokemon-text {
   font-size: 0.6em;
   margin: 0;
   text-transform: capitalize;
-  color: #FFDF6C;
 }
 
 button:hover {
@@ -233,26 +239,28 @@ button:hover {
 }
 
 .overlay-right {
-  border: 1px solid;
   gap: 1em;
   align-items: center;
-  
-
 }
 
-.stat-container, .height-weight-box, .ability-container {
-background-color: #800020;
-border-radius: 0.5em;
-padding: 1em;
-width: 80%;
-color: #FFDF6C;
-
+.overlay-right h2 {
+  margin: 0;
+  font-size: 1.2em;
 }
 
-
+.stat-container,
+.height-weight-box,
+.ability-container {
+  border-radius: 0.5em;
+  padding: 1em;
+  width: 80%;
+  color: #ffdf6c;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(50, 50, 50, 0.6);
+}
 
 .stat-container {
-
+  gap: 0.5em;
 }
 
 .stat-box {
@@ -260,9 +268,12 @@ color: #FFDF6C;
   flex-direction: column;
   justify-content: center;
   gap: 0.5em;
+  margin-top: 0.5em;
 }
 
-.stat-box p, .abilities-box p, .height-weight-box p {
+.stat-box p,
+.abilities-box p,
+.height-weight-box p {
   margin: 0;
   text-transform: capitalize;
 }
@@ -271,7 +282,6 @@ color: #FFDF6C;
   display: flex;
   gap: 1em;
 }
-
 
 .ability-container {
   gap: 1em;
