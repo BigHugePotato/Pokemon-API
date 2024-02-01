@@ -136,8 +136,8 @@ body.active-overlay #main-container {
   padding: 1em;
   background-image: linear-gradient(red, white);
   width: 100%;
-  height: 70%;
-  max-width: 600px;
+  height: 80%;
+  max-width: 800px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: 0.4em;
@@ -145,7 +145,6 @@ body.active-overlay #main-container {
 
 .overlay-left,
 .overlay-right {
-  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
 }
@@ -154,12 +153,19 @@ body.active-overlay #main-container {
   padding-right: 1em;
 }
 
+.pokemon-info{
+background-color: #800020;
+border-radius: 0.5em;
+}
 .pokemon-name {
-  margin: 0.3em;
+  margin: 0.2em;
   text-transform: capitalize;
+  font-size: 1.4em;
+  color: #FFDF6C;
 }
 .pokemon-id {
-  margin: 0.3em;
+  margin: 0.1em 0 0.1em 0.5em;
+  color: #FFDF6C;
 }
 
 .pokemon-image {
@@ -174,14 +180,18 @@ body.active-overlay #main-container {
 }
 
 .toggles button {
-  background-color: blue;
+  background-color: #FFDF6C;
+  padding: 0.3em 0.7em;
+  border-radius: 0.5em;
+  border: 0;
 }
 
 .pokemon-navigation-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* align-items: center; */
+  background-color: #800020;
+  border-radius: 0.5em;
 }
 
 .pokemon-prev-container,
@@ -197,18 +207,25 @@ body.active-overlay #main-container {
   width: 90%;
   height: auto;
   margin-bottom: 0.2em;
-  
+  transition: transform 0.3s ease;
+}
+
+.nav-pokemon-image:hover {
+  transform: scale(1.15);
+  cursor: pointer;
 }
 
 .nav-pokemon-id {
   margin: 0;
   font-size: 0.6em;
+  color: #FFDF6C;
 }
 
 .pokemon-text {
   font-size: 0.6em;
   margin: 0;
   text-transform: capitalize;
+  color: #FFDF6C;
 }
 
 button:hover {
@@ -217,5 +234,51 @@ button:hover {
 
 .overlay-right {
   border: 1px solid;
-  width: 20px;
+  gap: 1em;
+  align-items: center;
+  
+
+}
+
+.stat-container, .height-weight-box, .ability-container {
+background-color: #800020;
+border-radius: 0.5em;
+padding: 1em;
+width: 80%;
+color: #FFDF6C;
+
+}
+
+
+
+.stat-container {
+
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.stat-box p, .abilities-box p, .height-weight-box p {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.height-weight-box {
+  display: flex;
+  gap: 1em;
+}
+
+
+.ability-container {
+  gap: 1em;
+}
+
+.abilities-box {
+  display: flex;
+  gap: 1em;
+  margin-top: 0.5em;
 }

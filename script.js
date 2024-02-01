@@ -186,6 +186,9 @@ async function showPokemonDetailsInOverlay(pokemonData) {
   const pokemonName = document.getElementById("pokemonName");
   const pokemonId = document.getElementById("pokemonId");
   const pokemonImage = document.getElementById("pokemonImage");
+  const pokeStats = document.querySelector(".stat-box");
+  const pokeHeightWeight = document.querySelector(".height-weight-box");
+  const pokeAbilities = document.querySelector(".abilities-box");
   const prevPokemonContainer = document.getElementById("prevPokemonContainer");
   const nextPokemonContainer = document.getElementById("nextPokemonContainer");
 
@@ -216,6 +219,29 @@ async function showPokemonDetailsInOverlay(pokemonData) {
   // Clear previous content in navigation containers
   prevPokemonContainer.innerHTML = "";
   nextPokemonContainer.innerHTML = "";
+  pokeStats.innerHTML = "";
+  pokeHeightWeight.innerHTML = "";
+  pokeAbilities.innerHTML = "";
+
+  pokemonData.stats.forEach((stat) => {
+    const statEl = document.createElement("p");
+    statEl.textContent = `${stat.stat.name}: ${stat.base_stat}`;
+    pokeStats.appendChild(statEl);
+  });
+
+  const heightEl = document.createElement("p");
+  heightEl.textContent = `Height: ${pokemonData.height * 10}cm`;
+  pokeHeightWeight.appendChild(heightEl);
+
+  const weightEl = document.createElement("p");
+  weightEl.textContent = `Weight: ${pokemonData.weight / 10}kg`;
+  pokeHeightWeight.appendChild(weightEl);
+
+  pokemonData.abilities.forEach((ability) => {
+    const abilityEl = document.createElement("p");
+    abilityEl.textContent = `${ability.ability.name}`;
+    pokeAbilities.appendChild(abilityEl);
+  });
 
   // Handling Previous Pokémon (if prevPokemonId is valid)
   const prevPokemonId = pokemonData.id - 1;
