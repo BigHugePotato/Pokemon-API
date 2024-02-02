@@ -64,6 +64,7 @@ nav input {
   min-width: 115px;
 }
 
+
 .searchPokemonContainer {
   background-image: linear-gradient(red, white);
   width: 50%;
@@ -77,6 +78,17 @@ nav input {
   border-radius: 0.4em;
   margin-top: 0.5em;
   margin-left: 8%;
+  transition:transform 0.2s;
+  cursor: pointer;
+}
+@keyframes doubleJump {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-7px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-4px); }
+}
+.pokeImage:hover, .searchedPokeImage:hover {
+  animation: doubleJump 1s ease-in-out;
 }
 
 .searchedPokeImage {
@@ -85,6 +97,8 @@ nav input {
   border-radius: 0.4em;
   margin-top: 0.5em;
   margin-left: 8%;
+  transition:transform 0.2s;
+  cursor: pointer;
 }
 
 h2 {
