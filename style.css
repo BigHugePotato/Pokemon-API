@@ -7,9 +7,8 @@ body {
 }
 
 #error-msg {
-  color: rgb(152, 0, 0);
-  text-align: center;
-  margin: 10px 0;
+  color: rgb(0, 0, 0);
+  margin: auto
 }
 
 nav {
@@ -36,8 +35,19 @@ nav button {
   border: none;
   background-color: rgb(26, 26, 26);
   color: whitesmoke;
+  transition: background-color 0.2s, transform 0.2s;
+cursor: pointer;
 }
 
+nav button:hover {
+background-color: rgb(39, 39, 39);
+transform: translateY(-1px);
+
+}
+nav button:active {
+background-color: rgb(8, 8, 8);
+transform: translateY(2px);
+}
 nav input {
   padding: 0.35em 0.8em;
   border-radius: 0.5em;
@@ -138,6 +148,7 @@ body.active-overlay #main-container {
   width: 100%;
   height: 80%;
   max-width: 900px;
+  max-height: 500px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: 0.4em;
@@ -182,7 +193,8 @@ body.active-overlay #main-container {
   display: flex;
   flex-direction: column;
   justify-content: end;
-  gap: 1em;
+  gap: 0.5em;
+  margin-bottom: 1em;
 }
 
 .toggles button {
@@ -190,6 +202,19 @@ body.active-overlay #main-container {
   padding: 0.3em 0.7em;
   border-radius: 0.5em;
   border: 0;
+  transition: background-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.toggles button:hover {
+  background-color: #ffd22f;
+  transform: translateY(-1px);
+
+}
+
+.toggles button:active {
+  background-color: #e6c022;
+  transform: translateY(2px);
 }
 
 .pokemon-navigation-container {
@@ -234,9 +259,7 @@ body.active-overlay #main-container {
   text-transform: capitalize;
 }
 
-button:hover {
-  background-color: #e0e0e0;
-}
+
 
 .overlay-right {
   gap: 1em;

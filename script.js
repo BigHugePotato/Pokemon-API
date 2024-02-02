@@ -176,7 +176,7 @@ async function searchPokemon() {
 
     setTimeout(() => {
       errorMsgEl.textContent = "";
-    }, 3000);
+    }, 80000);
   }
 }
 
