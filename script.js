@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
  *
  * @param {string} url - The URL to fetch Pokémon data from.
  * @returns {Promise<object>} The parsed JSON data from the response.
- * 
+ *
  * Gets the data from the api in a async way. If nothing is wrong writes it into an json structure.
  *
  * ".ok" is a fetch property, it checks if the status is 200-299. Which is success.
@@ -70,7 +70,7 @@ let prevUrl = null;
 /**
  *
  * @param {string} url - The URL to fetch the list of Pokémon from.
- * 
+ *
  * Waits for data from the API via fetchData.
  *
  * If success, stores the data in the data const
@@ -84,9 +84,8 @@ async function updatePokemonList(url) {
   }
 }
 
-
 /**
- * 
+ *
  * @param {string} url - The URL to fetch the list of Pokémon from.
  */
 async function displayPokemonList(url = pokedexUrl) {
@@ -99,14 +98,13 @@ async function displayPokemonList(url = pokedexUrl) {
   }
 }
 
-
 /**
  * Creates a card element for a Pokémon with image, ID, name, and types.
- * 
+ *
  * @param {object} pokemonData - The data object for a single Pokémon.
- * 
+ *
  * @param {boolean} isSearchResult - Indicates if the card is a result of a search.
- * 
+ *
  * @returns {HTMLElement} The Pokémon card element.
  */
 function createPokemonCard(pokemonData, isSearchResult = false) {
@@ -149,10 +147,11 @@ function createPokemonCard(pokemonData, isSearchResult = false) {
   return containerEl;
 }
 
-
 /**
  * Creates a span element representing a Pokémon's type with styling based on type.
+ *
  * @param {object} typeInfo - The type information for a Pokémon.
+ *
  * @returns {HTMLElement} The span element styled according to Pokémon type.
  */
 function createTypeElement(typeInfo) {
@@ -163,8 +162,6 @@ function createTypeElement(typeInfo) {
   typeEl.style.color = typeTextColors[typeInfo.type.name] || "black";
   return typeEl;
 }
-
-
 
 function createShinyCheckbox(pokemonData, imageEl) {
   const shinyCheckbox = document.createElement("input");
@@ -183,7 +180,6 @@ function createShinyCheckbox(pokemonData, imageEl) {
 
   return { checkbox: shinyCheckbox, label: labelForShiny };
 }
-
 
 /**
  * Searches for a Pokémon based on user input in the search bar and displays the result.
@@ -206,10 +202,9 @@ async function searchPokemon() {
 
     setTimeout(() => {
       errorMsgEl.textContent = "";
-    }, 80000);
+    }, 3000);
   }
 }
-
 
 /**
  * Displays detailed information about a Pokémon in an overlay.
@@ -343,20 +338,24 @@ async function showPokemonDetailsInOverlay(pokemonData) {
   document.body.classList.add("active-overlay");
 }
 
-
 /**
  * Displays a preview for a Pokémon in a given container.
+ *
  * @param {object} pokemonData - The data object for a single Pokémon.
+ *
  * @param {HTMLElement} container - The container element to display the Pokémon preview in.
  */
 function displayPokemonPreview(pokemonData, container) {
   const imgEl = document.createElement("img");
   const idEl = document.createElement("h5");
   const textEl = document.createElement("h4");
+
   imgEl.className = "nav-pokemon-image";
   idEl.className = "nav-pokemon-id";
   textEl.className = "pokemon-text";
+  
   imgEl.src = pokemonData.sprites.other["official-artwork"].front_default;
+  imgEl.alt = `Preview of ${pokemonData.name}`;
   idEl.textContent = `#${pokemonData.id}`;
   textEl.textContent = pokemonData.name;
 
