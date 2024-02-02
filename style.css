@@ -52,14 +52,16 @@ nav input {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1em;
-  margin-top: 1em;
+  margin: auto;
+  max-width: 1250px;
 }
 
 .pokemonContainer {
   background-image: linear-gradient(red, white);
-  width: 20%;
+  width: 15%;
   box-shadow: 0px 0px 10px #ccc;
   border-radius: 0.4em;
+  min-width: 115px;
 }
 
 .searchPokemonContainer {
@@ -145,6 +147,7 @@ body.active-overlay #main-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: 0.4em;
+  margin: 0 1em;
 }
 
 .overlay-left,
