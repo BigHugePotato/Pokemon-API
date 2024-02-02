@@ -8,7 +8,7 @@ body {
 
 #error-msg {
   color: rgb(0, 0, 0);
-  margin: auto
+  margin: auto;
 }
 
 nav {
@@ -21,12 +21,6 @@ nav {
 
 .navUp {
   display: flex;
-  gap: 0.5em;
-  justify-content: space-between;
-}
-
-.searchContainer {
-  text-align: cen;
 }
 
 nav button {
@@ -36,17 +30,16 @@ nav button {
   background-color: rgb(26, 26, 26);
   color: whitesmoke;
   transition: background-color 0.2s, transform 0.2s;
-cursor: pointer;
+  cursor: pointer;
 }
 
 nav button:hover {
-background-color: rgb(39, 39, 39);
-transform: translateY(-1px);
-
+  background-color: rgb(39, 39, 39);
+  transform: translateY(-1px);
 }
 nav button:active {
-background-color: rgb(8, 8, 8);
-transform: translateY(2px);
+  background-color: rgb(8, 8, 8);
+  transform: translateY(2px);
 }
 nav input {
   padding: 0.35em 0.8em;
@@ -185,7 +178,7 @@ body.active-overlay #main-container {
 }
 .pokemon-image {
   width: auto;
-  height: 15em;
+  height: 16em;
   margin: auto;
 }
 
@@ -209,7 +202,6 @@ body.active-overlay #main-container {
 .toggles button:hover {
   background-color: #ffd22f;
   transform: translateY(-1px);
-
 }
 
 .toggles button:active {
@@ -258,8 +250,6 @@ body.active-overlay #main-container {
   margin: 0;
   text-transform: capitalize;
 }
-
-
 
 .overlay-right {
   gap: 1em;
