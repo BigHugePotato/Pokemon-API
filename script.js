@@ -42,7 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /**
  *
- * @param {*} url
+ * @param {string} url - The URL to fetch Pokémon data from.
+ * @returns {Promise<object>} The parsed JSON data from the response.
+ * 
  * Gets the data from the api in a async way. If nothing is wrong writes it into an json structure.
  *
  * ".ok" is a fetch property, it checks if the status is 200-299. Which is success.
@@ -67,7 +69,8 @@ let prevUrl = null;
 
 /**
  *
- * @param {*} url
+ * @param {string} url - The URL to fetch the list of Pokémon from.
+ * 
  * Waits for data from the API via fetchData.
  *
  * If success, stores the data in the data const
@@ -81,6 +84,11 @@ async function updatePokemonList(url) {
   }
 }
 
+
+/**
+ * 
+ * @param {string} url - The URL to fetch the list of Pokémon from.
+ */
 async function displayPokemonList(url = pokedexUrl) {
   await updatePokemonList(url);
   mainContainer.innerHTML = "";
@@ -91,6 +99,16 @@ async function displayPokemonList(url = pokedexUrl) {
   }
 }
 
+
+/**
+ * Creates a card element for a Pokémon with image, ID, name, and types.
+ * 
+ * @param {object} pokemonData - The data object for a single Pokémon.
+ * 
+ * @param {boolean} isSearchResult - Indicates if the card is a result of a search.
+ * 
+ * @returns {HTMLElement} The Pokémon card element.
+ */
 function createPokemonCard(pokemonData, isSearchResult = false) {
   const containerEl = document.createElement("div");
   containerEl.className = isSearchResult
@@ -131,6 +149,12 @@ function createPokemonCard(pokemonData, isSearchResult = false) {
   return containerEl;
 }
 
+
+/**
+ * Creates a span element representing a Pokémon's type with styling based on type.
+ * @param {object} typeInfo - The type information for a Pokémon.
+ * @returns {HTMLElement} The span element styled according to Pokémon type.
+ */
 function createTypeElement(typeInfo) {
   const typeEl = document.createElement("span");
   typeEl.textContent = typeInfo.type.name;
@@ -139,6 +163,8 @@ function createTypeElement(typeInfo) {
   typeEl.style.color = typeTextColors[typeInfo.type.name] || "black";
   return typeEl;
 }
+
+
 
 function createShinyCheckbox(pokemonData, imageEl) {
   const shinyCheckbox = document.createElement("input");
@@ -158,6 +184,10 @@ function createShinyCheckbox(pokemonData, imageEl) {
   return { checkbox: shinyCheckbox, label: labelForShiny };
 }
 
+
+/**
+ * Searches for a Pokémon based on user input in the search bar and displays the result.
+ */
 async function searchPokemon() {
   errorMsgEl.textContent = "";
   const searchInput = searchBar.value.toLowerCase().trim();
@@ -180,8 +210,12 @@ async function searchPokemon() {
   }
 }
 
+
+/**
+ * Displays detailed information about a Pokémon in an overlay.
+ * @param {object} pokemonData - The data object for a single Pokémon.
+ */
 async function showPokemonDetailsInOverlay(pokemonData) {
-  // Selecting existing elements
   const pokemonInfo = document.querySelector(".pokemon-info");
   const pokemonName = document.getElementById("pokemonName");
   const pokemonId = document.getElementById("pokemonId");
@@ -202,21 +236,16 @@ async function showPokemonDetailsInOverlay(pokemonData) {
   const typesContainer = document.createElement("div");
   typesContainer.className = "pokemon-types-container";
 
-  // Populate the container with type elements
   pokemonData.types.forEach((typeInfo) => {
     const typeEl = createTypeElement(typeInfo);
     typesContainer.appendChild(typeEl);
   });
 
-  // Append the types container to an appropriate place in the overlay
   pokemonInfo.appendChild(typesContainer);
 
-  // Updating main Pokémon info
   pokemonName.textContent = `${pokemonData.name}`;
   pokemonId.textContent = `#${pokemonData.id}`;
-  // pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonData.id}.gif`;
 
-  // Clear previous content in navigation containers
   prevPokemonContainer.innerHTML = "";
   nextPokemonContainer.innerHTML = "";
   pokeStats.innerHTML = "";
@@ -259,7 +288,7 @@ async function showPokemonDetailsInOverlay(pokemonData) {
         pokemonData.sprites.other["official-artwork"].front_default;
       return;
     }
-    let imgKey = "frontMale"; // Start with the default image
+    let imgKey = "frontMale";
     if (!isShiny && isFront) {
       imgKey = "frontShiny";
     } else if (isShiny && !isFront) {
@@ -290,7 +319,6 @@ async function showPokemonDetailsInOverlay(pokemonData) {
 
   const prevPokemonId = pokemonData.id - 1;
   if (prevPokemonId > 0) {
-    // Fetch and display previous Pokémon
     try {
       const prevPokemonData = await fetchData(
         `https://pokeapi.co/api/v2/pokemon/${prevPokemonId}/`
@@ -301,7 +329,6 @@ async function showPokemonDetailsInOverlay(pokemonData) {
     }
   }
 
-  // Handling Next Pokémon
   const nextPokemonId = pokemonData.id + 1;
   try {
     const nextPokemonData = await fetchData(
@@ -312,11 +339,16 @@ async function showPokemonDetailsInOverlay(pokemonData) {
     console.error("Error fetching next Pokémon:", error);
   }
 
-  // Display the overlay
   document.getElementById("pokemonOverlay").style.display = "block";
   document.body.classList.add("active-overlay");
 }
 
+
+/**
+ * Displays a preview for a Pokémon in a given container.
+ * @param {object} pokemonData - The data object for a single Pokémon.
+ * @param {HTMLElement} container - The container element to display the Pokémon preview in.
+ */
 function displayPokemonPreview(pokemonData, container) {
   const imgEl = document.createElement("img");
   const idEl = document.createElement("h5");
